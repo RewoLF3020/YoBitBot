@@ -6,6 +6,8 @@ def get_info():
     
     with open("info.txt", "w") as file:
         file.write(response.text)
+        
+    return response.text
 
 
 def get_ticker(coin1='btc', coin2='usd'):
@@ -59,9 +61,9 @@ def get_trades(coin1='btc', coin2='usd', limit=150):
 
 def main():
     # print(get_info())
-    # print(get_ticker())
+    print(get_ticker())
     # print(get_ticker(coin1='eth'))
-    # print(get_depth())
+    print(get_depth())
     # print(get_depth(coin1='doge', limit=2000))
     print(get_trades())
     

@@ -18,5 +18,5 @@ depth: инфа по ордерам покупка/продажа:
 trades: совершенные сделки по покупке и продаже
 
 ---
-__todo__:
-    send requests every {n} time, save data in database, compare amount and after big increase -> sygnal
+>__todo__:
+>>send requests every {n} time, save data in database, compare amount and after big increase -> sygnal
