@@ -1,4 +1,5 @@
 import requests
+import datetime
 
 
 def get_info():
@@ -11,23 +12,29 @@ def get_info():
 
 
 def get_ticker(coin1='btc', coin2='usd'):
-    # response = requests.get(url="https://yobit.net/api/3/ticker/eth_btc-xrp_btc")
     response = requests.get(url=f"https://yobit.net/api/3/ticker/{coin1}_{coin2}?ignore_invalid=1")
     
-    with open("ticker.txt", 'w') as file:
-        file.write(response.text)
+    # with open("ticker.txt", 'w') as file:
+        # file.write(response.text)
     
-    return response.text
+    data = response.json()[f"{coin1}_usd"]
+    answer_message = f"<b>{datetime.datetime.fromtimestamp(data['updated'])}</b>\n" \
+                     f"Максимальная цена: {data['high']} $\nМинимальная цена: {data['low']} $\n" \
+                     f"Средняя цена: {data['avg']} $\nОбъем торгов: {data['vol']} $\n" \
+                     f"Объем торгов в валюте: {data['vol_cur']} $\nЦена последней сделки: {data['last']} $\n" \
+                     f"Цена покупки: {data['buy']} $\nЦена продажи: {data['sell']} $\n"
+    
+    return answer_message
 
 
 def get_depth(coin1='btc', coin2='usd', limit=150):
     response = requests.get(url=f"https://yobit.net/api/3/depth/{coin1}_{coin2}?limit={limit}&ignore_invalid=1")
     
-    with open("depth.txt", 'w') as file:
-        file.write(response.text)
+    # with open("depth.txt", 'w') as file:
+        # file.write(response.text)
     
     #общая сумма выставленных на закуп монет в последних limit ордерах
-    bids = response.json()[f"{coin1}_usd"]["bids"]
+    bids = response.json()[f"{coin1}_{coin2}"]["bids"]
     
     total_bids_amount = 0
     for item in bids:
@@ -42,8 +49,8 @@ def get_depth(coin1='btc', coin2='usd', limit=150):
 def get_trades(coin1='btc', coin2='usd', limit=150):
     response = requests.get(url=f"https://yobit.net/api/3/trades/{coin1}_{coin2}?limit={limit}&ignore_invalid=1")
     
-    with open("trades.txt", 'w') as file:
-        file.write(response.text)
+    # with open("trades.txt", 'w') as file:
+        # file.write(response.text)
     
     #общая сумма проданных и купленных монет
     total_trade_ask = 0

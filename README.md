@@ -19,4 +19,4 @@ trades: совершенные сделки по покупке и продаж�
 
 ---
 >__todo__:
->>send requests every {n} time, save data in database, compare amount and after big increase -> sygnal
+>>send requests every {n} times, save data in database, compare amount and after big increase -> sygnal
