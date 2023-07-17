@@ -51,9 +51,6 @@ async def get_sold_bought_data(message: types.Message):
     await message.answer(get_trades(coin1=currency)) """
 
 
-
-
-
 @dp.callback_query_handler(lambda c: c.data in ['btc', 'eth', 'trx', 'xrp', 'doge', 'usdt'])
 async def process_callback_currency(callback_query: types.CallbackQuery):
     global currency
